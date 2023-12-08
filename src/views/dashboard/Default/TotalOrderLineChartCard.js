@@ -10,7 +10,7 @@ import Chart from 'react-apexcharts';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonTotalOrderCard from 'ui-component/cards/Skeleton/EarningCard';
+import SkeletonCard from 'ui-component/cards/Skeleton/SkeletonCard';
 
 import ChartDataMonth from './chart-data/total-order-month-line-chart';
 import ChartDataYear from './chart-data/total-order-year-line-chart';
@@ -74,7 +74,7 @@ const TotalOrderLineChartCard = ({isLoading}) => {
     return (
         <>
             {isLoading ? (
-                <SkeletonTotalOrderCard/>
+                <SkeletonCard/>
             ) : (
                 <CardWrapper border={false} content={false}>
                     <Box sx={{p: 2.25}}>

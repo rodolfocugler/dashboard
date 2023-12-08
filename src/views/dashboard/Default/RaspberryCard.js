@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
+import axios from 'axios';
 
 // material-ui
 import {styled, useTheme} from '@mui/material/styles';
@@ -7,26 +8,31 @@ import {Avatar, Box, Grid, Menu, MenuItem, Typography} from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
-import SkeletonEarningCard from 'ui-component/cards/Skeleton/EarningCard';
+import SkeletonCard from 'ui-component/cards/Skeleton/SkeletonCard';
+
 
 // assets
-import EarningIcon from 'assets/images/icons/earning.svg';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import GetAppTwoToneIcon from '@mui/icons-material/GetAppOutlined';
-import FileCopyTwoToneIcon from '@mui/icons-material/FileCopyOutlined';
-import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfOutlined';
-import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveOutlined';
+import BackupIcon from '@mui/icons-material/Backup';
+import ComputerIcon from '@mui/icons-material/Computer';
+import MemoryIcon from '@mui/icons-material/Memory';
+import ThermostatIcon from '@mui/icons-material/Thermostat';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const CardWrapper = styled(MainCard)(({theme}) => ({
     backgroundColor: theme.palette.secondary.dark,
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
+    '&>div': {
+        position: 'relative',
+        zIndex: 5
+    },
     '&:after': {
         content: '""',
         position: 'absolute',
         width: 210,
+        zIndex: 1,
         height: 210,
         background: theme.palette.secondary[800],
         borderRadius: '50%',
@@ -42,6 +48,7 @@ const CardWrapper = styled(MainCard)(({theme}) => ({
         position: 'absolute',
         width: 210,
         height: 210,
+        zIndex: 1,
         background: theme.palette.secondary[800],
         borderRadius: '50%',
         top: -125,
@@ -54,25 +61,40 @@ const CardWrapper = styled(MainCard)(({theme}) => ({
     }
 }));
 
-// ===========================|| DASHBOARD DEFAULT - EARNING CARD ||=========================== //
+// ===========================|| DASHBOARD DEFAULT - RASPBERRY CARD ||=========================== //
 
-const EarningCard = ({isLoading}) => {
+const RaspberryCard = ({isLoading}) => {
     const theme = useTheme();
-
+    const [monitorData, setMonitorData] = useState([]);
     const [anchorEl, setAnchorEl] = useState(null);
+    const [option, setOption] = useState("temperature");
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = (option) => {
         setAnchorEl(null);
+        setOption(option);
     };
+
+    const getMonitorData = useCallback(async (option) => {
+        try {
+            const response = await axios.get(`http://rasp-pi:9095/api/metrics/resource/${option}`)
+            setMonitorData(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
+
+    useEffect(() => {
+        getMonitorData(option);
+    }, [option]);
 
     return (
         <>
             {isLoading ? (
-                <SkeletonEarningCard/>
+                <SkeletonCard/>
             ) : (
                 <CardWrapper border={false} content={false}>
                     <Box sx={{p: 2.25}}>
@@ -80,17 +102,7 @@ const EarningCard = ({isLoading}) => {
                             <Grid item>
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
-                                        <Avatar
-                                            variant="rounded"
-                                            sx={{
-                                                ...theme.typography.commonAvatar,
-                                                ...theme.typography.largeAvatar,
-                                                backgroundColor: theme.palette.secondary[800],
-                                                mt: 1
-                                            }}
-                                        >
-                                            <img src={EarningIcon} alt="Notification"/>
-                                        </Avatar>
+                                        Raspberry Pi
                                     </Grid>
                                     <Grid item>
                                         <Avatar
@@ -102,14 +114,14 @@ const EarningCard = ({isLoading}) => {
                                                 color: theme.palette.secondary[200],
                                                 zIndex: 1
                                             }}
-                                            aria-controls="menu-earning-card"
+                                            aria-controls="menu-raspberry-card"
                                             aria-haspopup="true"
                                             onClick={handleClick}
                                         >
                                             <MoreHorizIcon fontSize="inherit"/>
                                         </Avatar>
                                         <Menu
-                                            id="menu-earning-card"
+                                            id="menu-raspberry-card"
                                             anchorEl={anchorEl}
                                             keepMounted
                                             open={Boolean(anchorEl)}
@@ -124,17 +136,20 @@ const EarningCard = ({isLoading}) => {
                                                 horizontal: 'right'
                                             }}
                                         >
-                                            <MenuItem onClick={handleClose}>
-                                                <GetAppTwoToneIcon sx={{mr: 1.75}}/> Import Card
+                                            <MenuItem onClick={() => handleClose("temperature")}>
+                                                <ThermostatIcon sx={{mr: 1.75}}/> Temperature
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <FileCopyTwoToneIcon sx={{mr: 1.75}}/> Copy Data
+                                            <MenuItem onClick={() => handleClose("disk")}>
+                                                <ComputerIcon sx={{mr: 1.75}}/> Disk
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <PictureAsPdfTwoToneIcon sx={{mr: 1.75}}/> Export
+                                            <MenuItem onClick={() => handleClose("memory")}>
+                                                <MemoryIcon sx={{mr: 1.75}}/> Memory
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ArchiveTwoToneIcon sx={{mr: 1.75}}/> Archive File
+                                            <MenuItem onClick={() => handleClose("backups")}>
+                                                <BackupIcon sx={{mr: 1.75}}/> Backups
+                                            </MenuItem>
+                                            <MenuItem onClick={() => handleClose("cpu")}>
+                                                <SettingsIcon sx={{mr: 1.75}}/> Cpu
                                             </MenuItem>
                                         </Menu>
                                     </Grid>
@@ -142,27 +157,20 @@ const EarningCard = ({isLoading}) => {
                             </Grid>
                             <Grid item>
                                 <Grid container alignItems="center">
-                                    <Grid item>
+                                    <Grid item sx={{zIndex: 1}}>
                                         <Typography sx={{
                                             fontSize: '2.125rem',
                                             fontWeight: 500,
                                             mr: 1,
                                             mt: 1.75,
                                             mb: 0.75
-                                        }}>$500.00</Typography>
-                                    </Grid>
-                                    <Grid item>
-                                        <Avatar
-                                            sx={{
-                                                cursor: 'pointer',
-                                                ...theme.typography.smallAvatar,
-                                                backgroundColor: theme.palette.secondary[200],
-                                                color: theme.palette.secondary.dark
-                                            }}
-                                        >
-                                            <ArrowUpwardIcon fontSize="inherit"
-                                                             sx={{transform: 'rotate3d(1, 1, 1, 45deg)'}}/>
-                                        </Avatar>
+                                        }}>
+                                            {option === "temperature" && monitorData?.value} {option === "temperature" && monitorData?.unit === "Celsius" && "°C"}
+                                            {option === "disk" && monitorData?.free_in_gb?.toFixed(2)} {option === "disk" && "gb free"}
+                                            {option === "memory" && (monitorData?.used_in_gb * 1000)?.toFixed(2)} {option === "memory" && "mb free"}
+                                            {option === "backups" && !!monitorData && monitorData.length > 0 ? monitorData[monitorData.length - 1] : null}
+                                            {option === "cpu" && monitorData?.idle?.toFixed(2)} {option === "cpu" && "idle"}
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -174,7 +182,7 @@ const EarningCard = ({isLoading}) => {
                                         color: theme.palette.secondary[200]
                                     }}
                                 >
-                                    Total Earning
+                                    {option === "backups" ? "Last backup" : option.charAt(0).toUpperCase() + option.slice(1)}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -185,8 +193,8 @@ const EarningCard = ({isLoading}) => {
     );
 };
 
-EarningCard.propTypes = {
+RaspberryCard.propTypes = {
     isLoading: PropTypes.bool
 };
 
-export default EarningCard;
+export default RaspberryCard;

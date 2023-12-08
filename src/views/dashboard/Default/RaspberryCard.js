@@ -80,7 +80,7 @@ const RaspberryCard = ({isLoading}) => {
 
     const getMonitorData = useCallback(async (option) => {
         try {
-            const response = await axios.get(`http://rasp-pi:9095/api/metrics/resource/${option}`)
+            const response = await axios.get(`https://rasp-pi:9096/api/metrics/resource/${option}`)
             setMonitorData(response.data);
         } catch (error) {
             console.log(error);

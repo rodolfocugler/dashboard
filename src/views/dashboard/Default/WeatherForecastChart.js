@@ -108,7 +108,7 @@ const WeatherForecastChart = ({ isLoading }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sx={{ pl: 0 }}>
               <Chart {...chartData} />
             </Grid>
           </Grid>

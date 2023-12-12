@@ -9,14 +9,15 @@ import moment from 'moment/moment';
 
 // ==============================|| DASHBOARD DEFAULT - WAZ RSS CARD ||============================== //
 
-const WazRssCard = ({ isLoading }) => {
+const G1RssCard = ({ isLoading }) => {
   const [rssEntries, setRssEntries] = useState([]);
 
   const getRssData = async () => {
     const CORS_PROXY = 'https://corsproxy.io/?';
 
-    const result = await extract(CORS_PROXY + 'https://www.waz-online.de/arc/outboundfeeds/rss/');
+    const result = await extract(CORS_PROXY + 'https://g1.globo.com/rss/g1/');
     setRssEntries(result.entries);
+    console.log(result.entries[0]);
   };
 
   useEffect(() => {
@@ -69,8 +70,8 @@ const WazRssCard = ({ isLoading }) => {
   );
 };
 
-WazRssCard.propTypes = {
+G1RssCard.propTypes = {
   isLoading: PropTypes.bool
 };
 
-export default WazRssCard;
+export default G1RssCard;

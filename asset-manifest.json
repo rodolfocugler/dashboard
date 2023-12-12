@@ -1,20 +1,13 @@
 {
   "files": {
     "main.css": "/dashboard/static/css/main.f92a6e57.css",
-    "main.js": "/dashboard/static/js/main.22f236ac.js",
-    "static/js/541.f788cb3f.chunk.js": "/dashboard/static/js/541.f788cb3f.chunk.js",
-    "static/js/565.dce4f39e.chunk.js": "/dashboard/static/js/565.dce4f39e.chunk.js",
-    "static/js/603.794ab1bb.chunk.js": "/dashboard/static/js/603.794ab1bb.chunk.js",
-    "static/js/801.d668bc23.chunk.js": "/dashboard/static/js/801.d668bc23.chunk.js",
-    "static/js/573.4c4e5b29.chunk.js": "/dashboard/static/js/573.4c4e5b29.chunk.js",
-    "static/js/271.a06ff0d3.chunk.js": "/dashboard/static/js/271.a06ff0d3.chunk.js",
-    "static/js/971.fd4c4f9e.chunk.js": "/dashboard/static/js/971.fd4c4f9e.chunk.js",
-    "static/js/430.4ee19e2e.chunk.js": "/dashboard/static/js/430.4ee19e2e.chunk.js",
-    "static/media/user-round.svg": "/dashboard/static/media/user-round.1da0f60c137367c7bbb4b0c80da22aee.svg",
+    "main.js": "/dashboard/static/js/main.d9693b83.js",
+    "static/js/830.de73f0db.chunk.js": "/dashboard/static/js/830.de73f0db.chunk.js",
+    "static/js/914.d395ea2d.chunk.js": "/dashboard/static/js/914.d395ea2d.chunk.js",
     "index.html": "/dashboard/index.html"
   },
   "entrypoints": [
     "static/css/main.f92a6e57.css",
-    "static/js/main.22f236ac.js"
+    "static/js/main.d9693b83.js"
   ]
 }

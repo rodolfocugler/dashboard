@@ -1,4 +1,4 @@
-import {lazy} from 'react';
+import { lazy } from 'react';
 
 // project imports
 import MainLayout from 'layout/MainLayout';
@@ -10,23 +10,23 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-    path: '',
-    element: <MainLayout/>,
-    children: [
+  path: '',
+  element: <MainLayout />,
+  children: [
+    {
+      path: '',
+      element: <DashboardDefault />
+    },
+    {
+      path: 'dashboard',
+      children: [
         {
-            path: '',
-            element: <DashboardDefault/>
-        },
-        {
-            path: 'dashboard',
-            children: [
-                {
-                    path: 'default',
-                    element: <DashboardDefault/>
-                }
-            ]
+          path: 'default',
+          element: <DashboardDefault />
         }
-    ]
+      ]
+    }
+  ]
 };
 
 export default MainRoutes;

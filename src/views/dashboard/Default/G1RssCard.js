@@ -17,7 +17,6 @@ const G1RssCard = ({ isLoading }) => {
 
     const result = await extract(CORS_PROXY + 'https://g1.globo.com/rss/g1/');
     setRssEntries(result.entries);
-    console.log(result.entries[0]);
   };
 
   useEffect(() => {

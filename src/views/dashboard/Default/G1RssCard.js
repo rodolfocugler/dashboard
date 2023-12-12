@@ -34,7 +34,7 @@ const G1RssCard = ({ isLoading }) => {
               <Grid item xs={12}>
                 <Grid container alignContent="center" justifyContent="space-between">
                   <Grid item>
-                    <Typography variant="h4">Waz Online</Typography>
+                    <Typography variant="h4">G1</Typography>
                   </Grid>
                 </Grid>
               </Grid>

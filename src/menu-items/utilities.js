@@ -1,12 +1,12 @@
 // assets
-import {IconTypography, IconPalette, IconShadow, IconWindmill} from '@tabler/icons';
+import {IconHeartRateMonitor, IconSourceCode, IconBrandDocker, IconBottle} from '@tabler/icons';
 
 // constant
 const icons = {
-    IconTypography,
-    IconPalette,
-    IconShadow,
-    IconWindmill
+    IconHeartRateMonitor,
+    IconSourceCode,
+    IconBrandDocker,
+    IconBottle
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -17,52 +17,40 @@ const utilities = {
     type: 'group',
     children: [
         {
-            id: 'util-typography',
-            title: 'Typography',
+            id: 'monitor',
+            title: 'Monitor',
             type: 'item',
-            url: '/utils/util-typography',
-            icon: icons.IconTypography,
-            breadcrumbs: false
+            url: 'http://rasp-pi:9095',
+            icon: icons.IconHeartRateMonitor,
+            breadcrumbs: false,
+            external: true
         },
         {
-            id: 'util-color',
-            title: 'Color',
+            id: 'jenkins',
+            title: 'Jenkins',
             type: 'item',
-            url: '/utils/util-color',
-            icon: icons.IconPalette,
-            breadcrumbs: false
+            url: 'http://rasp-pi:8080',
+            icon: icons.IconSourceCode,
+            breadcrumbs: false,
+            external: true
         },
         {
-            id: 'util-shadow',
-            title: 'Shadow',
+            id: 'portainer',
+            title: 'Portainer',
             type: 'item',
-            url: '/utils/util-shadow',
-            icon: icons.IconShadow,
-            breadcrumbs: false
+            url: 'http://rasp-pi:9000',
+            icon: icons.IconBrandDocker,
+            breadcrumbs: false,
+            external: true
         },
         {
-            id: 'icons',
-            title: 'Icons',
-            type: 'collapse',
-            icon: icons.IconWindmill,
-            children: [
-                {
-                    id: 'tabler-icons',
-                    title: 'Tabler Icons',
-                    type: 'item',
-                    url: '/icons/tabler-icons',
-                    breadcrumbs: false
-                },
-                {
-                    id: 'material-icons',
-                    title: 'Material Icons',
-                    type: 'item',
-                    external: true,
-                    target: '_blank',
-                    url: 'https://mui.com/material-ui/material-icons/',
-                    breadcrumbs: false
-                }
-            ]
+            id: 'drinkeiro',
+            title: 'Drinkeiro',
+            type: 'item',
+            url: 'http://rasp-pi',
+            icon: icons.IconBottle,
+            breadcrumbs: false,
+            external: true
         }
     ]
 };

@@ -20,7 +20,7 @@ const utilities = {
       id: 'monitor',
       title: 'Monitor',
       type: 'item',
-      url: 'http://rasp-pi:9095',
+      url: 'https://rasp-pi:9096',
       icon: icons.IconHeartRateMonitor,
       breadcrumbs: false,
       external: true

@@ -47,7 +47,7 @@ const utilities = {
       id: 'drinkeiro',
       title: 'Drinkeiro',
       type: 'item',
-      url: 'http://rasp-pi',
+      url: 'http://rasp-pi:81',
       icon: icons.IconBottle,
       breadcrumbs: false,
       external: true

@@ -47,7 +47,7 @@ const utilities = {
       id: 'drinkeiro',
       title: 'Drinkeiro',
       type: 'item',
-      url: (domain = 'rasp-pi') => `http://${domain}:81`,
+      url: (domain = 'rasp-pi') => `http://${domain}:81?domain=${domain}`,
       icon: icons.IconBottle,
       breadcrumbs: false,
       external: true

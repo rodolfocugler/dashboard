@@ -17,6 +17,7 @@ import ComputerIcon from '@mui/icons-material/Computer';
 import MemoryIcon from '@mui/icons-material/Memory';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LoginIcon from '@mui/icons-material/Login';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.dark,
@@ -66,7 +67,7 @@ const RaspberryCard = ({ isLoading }) => {
   const theme = useTheme();
   const [monitorData, setMonitorData] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [option, setOption] = useState('temperature');
+  const [option, setOption] = useState({ name: 'temperature', value: 'temperature' });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,7 +80,7 @@ const RaspberryCard = ({ isLoading }) => {
 
   const getMonitorData = async (option) => {
     try {
-      const response = await axios.get(`https://rasp-pi:9096/api/metrics/resource/${option}`);
+      const response = await axios.get(`https://rasp-pi:9096/api/metrics/resource/${option.value}`);
       setMonitorData(response.data);
     } catch (error) {
       console.log(error);
@@ -133,20 +134,23 @@ const RaspberryCard = ({ isLoading }) => {
                         horizontal: 'right'
                       }}
                     >
-                      <MenuItem onClick={() => handleClose('temperature')}>
+                      <MenuItem onClick={() => handleClose({ name: 'Temperature', value: 'temperature' })}>
                         <ThermostatIcon sx={{ mr: 1.75 }} /> Temperature
                       </MenuItem>
-                      <MenuItem onClick={() => handleClose('disk')}>
+                      <MenuItem onClick={() => handleClose({ name: 'Disk', value: 'disk' })}>
                         <ComputerIcon sx={{ mr: 1.75 }} /> Disk
                       </MenuItem>
-                      <MenuItem onClick={() => handleClose('memory')}>
+                      <MenuItem onClick={() => handleClose({ name: 'Memory', value: 'memory' })}>
                         <MemoryIcon sx={{ mr: 1.75 }} /> Memory
                       </MenuItem>
-                      <MenuItem onClick={() => handleClose('backups')}>
+                      <MenuItem onClick={() => handleClose({ name: 'Last backup', value: 'backups' })}>
                         <BackupIcon sx={{ mr: 1.75 }} /> Backups
                       </MenuItem>
-                      <MenuItem onClick={() => handleClose('cpu')}>
+                      <MenuItem onClick={() => handleClose({ name: 'Cpu', value: 'cpu' })}>
                         <SettingsIcon sx={{ mr: 1.75 }} /> Cpu
+                      </MenuItem>
+                      <MenuItem onClick={() => handleClose({ name: 'SSH accesses', value: 'ssh_accesses' })}>
+                        <LoginIcon sx={{ mr: 1.75 }} /> Ssh
                       </MenuItem>
                     </Menu>
                   </Grid>
@@ -164,11 +168,13 @@ const RaspberryCard = ({ isLoading }) => {
                         mb: 0.75
                       }}
                     >
-                      {option === 'temperature' && monitorData?.value} {option === 'temperature' && monitorData?.unit === 'Celsius' && '°C'}
-                      {option === 'disk' && monitorData?.free_in_gb?.toFixed(2)} {option === 'disk' && 'gb free'}
-                      {option === 'memory' && (monitorData?.used_in_gb * 1000)?.toFixed(2)} {option === 'memory' && 'mb free'}
-                      {option === 'backups' && !!monitorData && monitorData.length > 0 ? monitorData[monitorData.length - 1] : null}
-                      {option === 'cpu' && monitorData?.idle?.toFixed(2)} {option === 'cpu' && 'idle'}
+                      {option.value === 'temperature' && monitorData?.value}{' '}
+                      {option.value === 'temperature' && monitorData?.unit === 'Celsius' && '°C'}
+                      {option.value === 'disk' && monitorData?.free_in_gb?.toFixed(2)} {option.value === 'disk' && 'gb free'}
+                      {option.value === 'memory' && (monitorData?.used_in_gb * 1000)?.toFixed(2)} {option.value === 'memory' && 'mb free'}
+                      {option.value === 'backups' && !!monitorData && monitorData.length > 0 ? monitorData[monitorData.length - 1] : null}
+                      {option.value === 'cpu' && monitorData?.idle?.toFixed(2)} {option.value === 'cpu' && 'idle'}
+                      {option.value === 'ssh_accesses' && monitorData?.length} {option.value === 'ssh_accesses' && 'accesses'}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -181,7 +187,7 @@ const RaspberryCard = ({ isLoading }) => {
                     color: theme.palette.secondary[200]
                   }}
                 >
-                  {option === 'backups' ? 'Last backup' : option.charAt(0).toUpperCase() + option.slice(1)}
+                  {option.name}
                 </Typography>
               </Grid>
             </Grid>

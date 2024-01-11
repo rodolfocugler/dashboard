@@ -12,12 +12,18 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import MenuList from './MenuList';
 import LogoSection from '../LogoSection';
 import { drawerWidth } from 'store/constant';
+import { useLocation } from 'react-router';
+import queryString from 'querystring';
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
 const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
   const theme = useTheme();
   const matchUpMd = useMediaQuery(theme.breakpoints.up('md'));
+  const { search } = useLocation();
+
+  const query = queryString.parse(search.replace('?', ''));
+  const domain = query.domain ? query.domain : 'rasp-pi';
 
   const drawer = (
     <>
@@ -35,7 +41,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
             paddingRight: '16px'
           }}
         >
-          <MenuList />
+          <MenuList domain={domain} />
           <Stack direction="row" justifyContent="center" sx={{ mb: 2 }}>
             <Chip label={process.env.REACT_APP_VERSION} disabled chipcolor="secondary" size="small" sx={{ cursor: 'pointer' }} />
           </Stack>

@@ -16,7 +16,7 @@ import { IconChevronDown, IconChevronUp } from '@tabler/icons';
 
 // ==============================|| SIDEBAR MENU LIST COLLAPSE ITEMS ||============================== //
 
-const NavCollapse = ({ menu, level }) => {
+const NavCollapse = ({ menu, level, domain }) => {
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
   const navigate = useNavigate();
@@ -28,14 +28,14 @@ const NavCollapse = ({ menu, level }) => {
     setOpen(!open);
     setSelected(!selected ? menu.id : null);
     if (menu?.id !== 'authentication') {
-      navigate(menu.children[0]?.url);
+      navigate(menu.children[0]?.url(domain));
     }
   };
 
   const { pathname } = useLocation();
   const checkOpenForParent = (child, id) => {
     child.forEach((item) => {
-      if (item.url === pathname) {
+      if (item.url(domain) === pathname) {
         setOpen(true);
         setSelected(id);
       }
@@ -51,7 +51,7 @@ const NavCollapse = ({ menu, level }) => {
         if (item.children?.length) {
           checkOpenForParent(item.children, menu.id);
         }
-        if (item.url === pathname) {
+        if (item.url(domain) === pathname) {
           setSelected(menu.id);
           setOpen(true);
         }
@@ -65,9 +65,9 @@ const NavCollapse = ({ menu, level }) => {
   const menus = menu.children?.map((item) => {
     switch (item.type) {
       case 'collapse':
-        return <NavCollapse key={item.id} menu={item} level={level + 1} />;
+        return <NavCollapse key={item.id} menu={item} level={level + 1} domain={domain} />;
       case 'item':
-        return <NavItem key={item.id} item={item} level={level + 1} />;
+        return <NavItem key={item.id} item={item} level={level + 1} domain={domain} />;
       default:
         return (
           <Typography key={item.id} variant="h6" color="error" align="center">

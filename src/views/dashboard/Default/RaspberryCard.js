@@ -18,6 +18,8 @@ import MemoryIcon from '@mui/icons-material/Memory';
 import ThermostatIcon from '@mui/icons-material/Thermostat';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LoginIcon from '@mui/icons-material/Login';
+import { useLocation } from 'react-router';
+import queryString from 'querystring';
 
 const CardWrapper = styled(MainCard)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.dark,
@@ -68,6 +70,7 @@ const RaspberryCard = ({ isLoading }) => {
   const [monitorData, setMonitorData] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [option, setOption] = useState({ name: 'temperature', value: 'temperature' });
+  const { search } = useLocation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -80,7 +83,9 @@ const RaspberryCard = ({ isLoading }) => {
 
   const getMonitorData = async (option) => {
     try {
-      const response = await axios.get(`https://rasp-pi:9096/api/metrics/resource/${option.value}`);
+      const query = queryString.parse(search.replace('?', ''));
+      const domain = query.domain ? query.domain : 'rasp-pi';
+      const response = await axios.get(`https://${domain}:9096/api/metrics/resource/${option.value}`);
       setMonitorData(response.data);
     } catch (error) {
       console.log(error);

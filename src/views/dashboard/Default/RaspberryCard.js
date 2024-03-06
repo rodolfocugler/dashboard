@@ -84,7 +84,7 @@ const RaspberryCard = ({ isLoading }) => {
   const getMonitorData = async (option) => {
     try {
       const query = queryString.parse(search.replace('?', ''));
-      const domain = query.domain ? query.domain : 'rasp-pi';
+      const domain = query.domain ? query.domain : 'pi-desktop';
       const response = await axios.get(`https://${domain}:9096/api/metrics/resource/${option.value}`);
       setMonitorData(response.data);
     } catch (error) {

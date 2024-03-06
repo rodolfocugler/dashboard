@@ -23,7 +23,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
   const { search } = useLocation();
 
   const query = queryString.parse(search.replace('?', ''));
-  const domain = query.domain ? query.domain : 'rasp-pi';
+  const domain = query.domain ? query.domain : 'pi-desktop';
 
   const drawer = (
     <>

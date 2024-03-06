@@ -20,7 +20,7 @@ const utilities = {
       id: 'monitor',
       title: 'Monitor',
       type: 'item',
-      url: (domain = 'rasp-pi') => `https://${domain}:9096`,
+      url: (domain = 'pi-desktop') => `https://${domain}:9096`,
       icon: icons.IconHeartRateMonitor,
       breadcrumbs: false,
       external: true
@@ -29,7 +29,7 @@ const utilities = {
       id: 'jenkins',
       title: 'Jenkins',
       type: 'item',
-      url: (domain = 'rasp-pi') => `http://${domain}:8080`,
+      url: (domain = 'pi-desktop') => `http://${domain}:8080`,
       icon: icons.IconSourceCode,
       breadcrumbs: false,
       external: true
@@ -38,7 +38,7 @@ const utilities = {
       id: 'portainer',
       title: 'Portainer',
       type: 'item',
-      url: (domain = 'rasp-pi') => `http://${domain}:9000`,
+      url: (domain = 'pi-desktop') => `http://${domain}:9000`,
       icon: icons.IconBrandDocker,
       breadcrumbs: false,
       external: true
@@ -47,7 +47,7 @@ const utilities = {
       id: 'drinkeiro',
       title: 'Drinkeiro',
       type: 'item',
-      url: (domain = 'rasp-pi') => `http://${domain}:81?domain=${domain}`,
+      url: (domain = 'pi-desktop') => `http://${domain}:81?domain=${domain}`,
       icon: icons.IconBottle,
       breadcrumbs: false,
       external: true

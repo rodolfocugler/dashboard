@@ -13,7 +13,7 @@ const G1RssCard = ({ isLoading }) => {
   const [rssEntries, setRssEntries] = useState([]);
 
   const getRssData = async () => {
-    const CORS_PROXY = 'https://corsproxy.io/?';
+    const CORS_PROXY = 'https://thingproxy.freeboard.io/fetch/?';
 
     const result = await extract(CORS_PROXY + 'https://g1.globo.com/rss/g1/');
     setRssEntries(result.entries);

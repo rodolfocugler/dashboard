@@ -31,9 +31,9 @@ const Dashboard = () => {
           </Grid>
           <Grid item lg={4} md={12} sm={12} xs={12}>
             <Grid container spacing={gridSpacing}>
-              <Grid item sm={6} xs={12} md={6} lg={12}>
-                <RaspberryCard isLoading={isLoading} />
-              </Grid>
+              {/*<Grid item sm={6} xs={12} md={6} lg={12}>*/}
+              {/*  <RaspberryCard isLoading={isLoading} />*/}
+              {/*</Grid>*/}
               <Grid item sm={6} xs={12} md={6} lg={12}>
                 <EuroLineChartCard isLoading={isLoading} />
               </Grid>

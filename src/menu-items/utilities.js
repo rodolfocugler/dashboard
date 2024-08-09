@@ -20,7 +20,8 @@ const utilities = {
       id: 'monitor',
       title: 'Monitor',
       type: 'item',
-      url: (domain = 'pi-desktop') => `https://${domain}:9096`,
+      url: (domain = 'pi-desktop') =>
+        `https://rodolfocugler.grafana.net/d/raspberrypinode-overview/raspberry-pi-overview?var-datasource=grafanacloud-prom&var-job=$__all&var-loki_datasource=grafanacloud-logs&var-instance=pi-desktop`,
       icon: icons.IconHeartRateMonitor,
       breadcrumbs: false,
       external: true

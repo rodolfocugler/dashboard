@@ -13,9 +13,9 @@ const WazRssCard = ({ isLoading }) => {
   const [rssEntries, setRssEntries] = useState([]);
 
   const getRssData = async () => {
-    const CORS_PROXY = 'https://thingproxy.freeboard.io/fetch/';
+    const CORS_PROXY = 'https://corsproxy.io/?';
 
-    const result = await extract(CORS_PROXY + 'https://www.waz-online.de/arc/outboundfeeds/rss/');
+    const result = await extract(CORS_PROXY + encodeURIComponent('https://www.waz-online.de/arc/outboundfeeds/rss/'));
     setRssEntries(result.entries);
   };
 

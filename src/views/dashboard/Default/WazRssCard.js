@@ -6,14 +6,20 @@ import { gridSpacing } from 'store/constant';
 
 import { extract } from '@extractus/feed-extractor';
 import moment from 'moment/moment';
+import queryString from 'querystring';
+import { useLocation } from 'react-router';
 
 // ==============================|| DASHBOARD DEFAULT - WAZ RSS CARD ||============================== //
 
 const WazRssCard = ({ isLoading }) => {
   const [rssEntries, setRssEntries] = useState([]);
+  const { search } = useLocation();
 
   const getRssData = async () => {
-    const CORS_PROXY = 'https://corsproxy.io/?';
+    const query = queryString.parse(search.replace('?', ''));
+    const domain = query.domain ? query.domain : 'pi-desktop';
+
+    const CORS_PROXY = `http://${domain}:3005/?`;
 
     const result = await extract(CORS_PROXY + encodeURIComponent('https://www.waz-online.de/arc/outboundfeeds/rss/'));
     setRssEntries(result.entries);

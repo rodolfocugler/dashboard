@@ -19,7 +19,7 @@ const WazRssCard = ({ isLoading }) => {
     const query = queryString.parse(search.replace('?', ''));
     const domain = query.domain ? query.domain : 'pi-desktop';
 
-    const CORS_PROXY = `http://${domain}:3005/?`;
+    const CORS_PROXY = `http://${domain}:3005/`;
 
     const result = await extract(CORS_PROXY + encodeURIComponent('https://www.waz-online.de/arc/outboundfeeds/rss/'));
     setRssEntries(result.entries);

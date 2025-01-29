@@ -21,7 +21,7 @@ const WazRssCard = ({ isLoading }) => {
 
     const CORS_PROXY = `http://${domain}:3005/`;
 
-    const result = await extract(CORS_PROXY + encodeURIComponent('https://www.waz-online.de/arc/outboundfeeds/rss/'));
+    const result = await extract(CORS_PROXY + 'https://www.waz-online.de/arc/outboundfeeds/rss/');
     setRssEntries(result.entries);
   };
 

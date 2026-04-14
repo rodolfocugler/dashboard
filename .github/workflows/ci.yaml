@@ -23,6 +23,10 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          CI: false
 
       - name: Deploy project
         run: npm run deploy
+        env:
+          CI: false

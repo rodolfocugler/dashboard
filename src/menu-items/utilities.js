@@ -1,12 +1,14 @@
 // assets
-import { IconBottle, IconBrandDocker, IconHeartRateMonitor, IconSourceCode } from '@tabler/icons';
+import { IconBottle, IconBrandDocker, IconHeartRateMonitor, IconSourceCode, IconBrandRedhat, IconMessage } from '@tabler/icons';
 
 // constant
 const icons = {
   IconHeartRateMonitor,
   IconSourceCode,
   IconBrandDocker,
-  IconBottle
+  IconBottle,
+  IconBrandRedhat,
+  IconMessage
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -36,11 +38,20 @@ const utilities = {
       external: true
     },
     {
-      id: 'portainer',
-      title: 'Portainer',
+      id: 'node-red',
+      title: 'Node Red',
       type: 'item',
-      url: (domain = 'pi-desktop') => `http://${domain}:9000`,
-      icon: icons.IconBrandDocker,
+      url: (domain = 'pi-desktop') => `http://${domain}:1880`,
+      icon: icons.IconBrandRedhat,
+      breadcrumbs: false,
+      external: true
+    },
+    {
+      id: 'mqtt',
+      title: 'Mqtt Explorer',
+      type: 'item',
+      url: (domain = 'pi-desktop') => `http://${domain}:83`,
+      icon: icons.IconMessage,
       breadcrumbs: false,
       external: true
     },

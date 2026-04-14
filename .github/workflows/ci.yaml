@@ -26,6 +26,11 @@ jobs:
         env:
           CI: false
 
+      - name: Configure Git
+        run: |
+          git config --global user.name "Rodolfo Cugler"
+          git config --global user.email "rodolfocugler@outlook.com"
+
       - name: Deploy project
         run: npm run deploy
         env:

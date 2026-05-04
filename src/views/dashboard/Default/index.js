@@ -10,6 +10,7 @@ import EuroLineChartCard from './EuroLineChartCard';
 import WeatherForecastChart from './WeatherForecastChart';
 import G1RssCard from './G1RssCard';
 import { gridSpacing } from 'store/constant';
+import SensorChart from './SensorChart';
 
 // ==============================|| DEFAULT DASHBOARD ||============================== //
 
@@ -43,6 +44,9 @@ const Dashboard = () => {
       </Grid>
       <Grid item xs={12}>
         <WeatherForecastChart isLoading={isLoading} />
+      </Grid>
+      <Grid item xs={12}>
+        <SensorChart isLoading={isLoading} />
       </Grid>
     </Grid>
   );

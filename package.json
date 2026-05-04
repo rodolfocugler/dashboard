@@ -16,6 +16,7 @@
     "@tabler/icons": "^1.72.0",
     "apexcharts": "^3.35.3",
     "axios": "^1.15.0",
+    "buffer": "^6.0.3",
     "formik": "^2.2.9",
     "framer-motion": "^6.3.16",
     "gh-pages": "^6.1.0",

@@ -8,12 +8,14 @@ import { extract } from '@extractus/feed-extractor';
 import moment from 'moment/moment';
 import queryString from 'querystring';
 import { useLocation } from 'react-router';
+import { Buffer } from 'buffer';
 
 // ==============================|| DASHBOARD DEFAULT - WAZ RSS CARD ||============================== //
 
 const WazRssCard = ({ isLoading }) => {
   const [rssEntries, setRssEntries] = useState([]);
   const { search } = useLocation();
+  window.Buffer = Buffer;
 
   const getRssData = async () => {
     const query = queryString.parse(search.replace('?', ''));
@@ -21,8 +23,13 @@ const WazRssCard = ({ isLoading }) => {
 
     const CORS_PROXY = `http://${domain}:3005/`;
 
-    const result = await extract(CORS_PROXY + 'https://www.waz-online.de/arc/outboundfeeds/rss/');
-    setRssEntries(result.entries);
+    await extract(CORS_PROXY + 'https://www.waz-online.de/arc/outboundfeeds/rss/')
+      .then((result) => {
+        setRssEntries(result.entries);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

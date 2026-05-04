@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'; // material-ui
 import { CardContent, Divider, Grid, Typography } from '@mui/material'; // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { gridSpacing } from 'store/constant';
+import { Buffer } from 'buffer';
 
 import { extract } from '@extractus/feed-extractor';
 import moment from 'moment/moment';
@@ -14,6 +15,7 @@ import { useLocation } from 'react-router';
 const G1RssCard = ({ isLoading }) => {
   const [rssEntries, setRssEntries] = useState([]);
   const { search } = useLocation();
+  window.Buffer = Buffer;
 
   const getRssData = async () => {
     const query = queryString.parse(search.replace('?', ''));
@@ -21,8 +23,13 @@ const G1RssCard = ({ isLoading }) => {
 
     const CORS_PROXY = `http://${domain}:3005/`;
 
-    const result = await extract(CORS_PROXY + 'https://g1.globo.com/rss/g1/');
-    setRssEntries(result.entries);
+    extract(CORS_PROXY + 'https://g1.globo.com/rss/g1/')
+      .then((result) => {
+        setRssEntries(result.entries);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

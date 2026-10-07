@@ -12,7 +12,7 @@ import moment from 'moment';
 import SkeletonWeatherForecastChart from 'ui-component/cards/Skeleton/WeatherForecastChart';
 import MainCard from 'ui-component/cards/MainCard';
 import CardTitle from 'ui-component/cards/CardTitle';
-import useDomain from 'hooks/useDomain';
+import useDomain, { localFetch } from 'hooks/useDomain';
 
 // chart data
 import templateChartData from './chart-data/sensor-chart';
@@ -38,7 +38,7 @@ const SensorChart = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`http://${domain}:1880/sensor/${sensor}`);
+      const response = await localFetch(`http://${domain}:1880/sensor/${sensor}`);
       const data = await response.json();
       setSensorData({
         hourly: {

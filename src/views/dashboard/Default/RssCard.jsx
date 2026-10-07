@@ -11,7 +11,7 @@ import moment from 'moment';
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import CardTitle from 'ui-component/cards/CardTitle';
-import useDomain from 'hooks/useDomain';
+import useDomain, { localFetch } from 'hooks/useDomain';
 
 // assets
 import { IconRss } from '@tabler/icons';
@@ -27,7 +27,7 @@ const RssCard = ({ title, url }) => {
 
   useEffect(() => {
     // the feeds don't send CORS headers, so they go through the proxy on the home server
-    extract(`http://${domain}:3005/${url}`)
+    extract(`http://${domain}:3005/${url}`, {}, localFetch)
       .then((result) => setEntries(result.entries))
       .catch((err) => {
         console.log(err);

@@ -1,17 +1,22 @@
-// ===========================|| DASHBOARD - TOTAL GROWTH BAR CHART ||=========================== //
+import chartTheme from './chart-theme';
 
-const chartData = (weatherData) => {
-  const min =
-    Math.min(Math.min.apply(Math, weatherData?.hourly?.temperature2m), Math.min.apply(Math, weatherData?.hourly?.apparentTemperature)) - 3;
-  const max =
-    Math.max(Math.max.apply(Math, weatherData?.hourly?.temperature2m), Math.max.apply(Math, weatherData?.hourly?.apparentTemperature)) + 3;
+// ===========================|| DASHBOARD - WEATHER FORECAST CHART ||=========================== //
+
+const chartData = (weatherData, theme) => {
+  const { hourly } = weatherData;
+  const temps = [...hourly.temperature2m, ...hourly.apparentTemperature];
+  const min = Math.min(...temps) - 3;
+  const max = Math.max(...temps) + 3;
+  const base = chartTheme(theme);
 
   return {
-    height: 480,
+    height: 420,
     type: 'line',
     options: {
+      ...base,
       chart: {
-        id: 'bar-chart',
+        ...base.chart,
+        id: 'weather-chart',
         stacked: false,
         toolbar: {
           show: true,
@@ -25,87 +30,64 @@ const chartData = (weatherData) => {
           enabled: true
         }
       },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: 'bottom',
-              offsetX: -10,
-              offsetY: 0
-            }
-          }
-        }
-      ],
+      colors: [theme.palette.primary.main, theme.palette.secondary.main, theme.palette.orange.dark, theme.palette.primary[200]],
       stroke: {
-        dashArray: [0, 0, 2],
-        width: [1.5, 1.5, 1]
+        curve: 'smooth',
+        dashArray: [0, 4, 0, 0],
+        width: [3, 2, 1.5, 0]
       },
       xaxis: {
         type: 'category',
-        categories: weatherData?.hourly?.time,
-        tickAmount: weatherData?.hourly?.time.length / 4
+        categories: hourly.time,
+        tickAmount: Math.ceil(hourly.time.length / 4),
+        labels: { rotate: -45, hideOverlappingLabels: true }
       },
       legend: {
         show: true,
-        fontSize: '14px',
-        fontFamily: `'Roboto', sans-serif`,
+        fontSize: '13px',
         position: 'bottom',
-        offsetX: 20,
-        labels: {
-          useSeriesColors: false
-        },
-        markers: {
-          width: 16,
-          height: 16,
-          radius: 5
-        },
+        markers: { size: 6 },
         itemMargin: {
-          horizontal: 15,
+          horizontal: 12,
           vertical: 8
         }
       },
       fill: {
-        type: 'solid'
+        type: 'solid',
+        opacity: [1, 1, 1, 0.6]
+      },
+      plotOptions: {
+        bar: { columnWidth: '60%', borderRadius: 2 }
       },
       dataLabels: {
         enabled: false
       },
-      grid: {
-        show: true
-      },
       yaxis: [
         {
           seriesName: 'Temperature',
-          min: min,
-          max: max,
-          title: {
-            text: '°C'
-          }
+          min,
+          max,
+          decimalsInFloat: 0,
+          title: { text: '°C' }
         },
         {
-          seriesName: 'Apparent Temperature',
-          show: false,
-          min: min,
-          max: max
+          seriesName: 'Temperature',
+          show: false
         },
         {
-          seriesName: 'Precipitation Probability',
+          seriesName: 'Rain probability',
           opposite: true,
           min: 0,
           max: 100,
-          title: {
-            text: '%'
-          }
+          decimalsInFloat: 0,
+          title: { text: '%' }
         },
         {
           seriesName: 'Precipitation',
-          show: true,
-          title: {
-            text: 'ml'
-          },
+          opposite: true,
           min: 0,
-          max: 5
+          max: 5,
+          title: { text: 'mm' }
         }
       ]
     },
@@ -113,22 +95,22 @@ const chartData = (weatherData) => {
       {
         name: 'Temperature',
         type: 'line',
-        data: weatherData?.hourly?.temperature2m
+        data: hourly.temperature2m
       },
       {
-        name: 'Apparent Temperature',
+        name: 'Feels like',
         type: 'line',
-        data: weatherData?.hourly?.apparentTemperature
+        data: hourly.apparentTemperature
       },
       {
-        name: 'Precipitation Probability',
+        name: 'Rain probability',
         type: 'line',
-        data: weatherData?.hourly?.precipitationProbability
+        data: hourly.precipitationProbability
       },
       {
         name: 'Precipitation',
         type: 'column',
-        data: weatherData?.hourly?.precipitation
+        data: hourly.precipitation
       }
     ]
   };

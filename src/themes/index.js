@@ -15,19 +15,22 @@ import themeTypography from './typography';
 
 export const theme = (customization) => {
   const color = colors;
+  const isDark = customization.mode === 'dark';
 
   const themeOption = {
     colors: color,
-    heading: color.grey900,
-    paper: color.paper,
-    backgroundDefault: color.paper,
-    background: color.primaryLight,
-    darkTextPrimary: color.grey700,
-    darkTextSecondary: color.grey500,
-    textDark: color.grey900,
-    menuSelected: color.secondaryDark,
-    menuSelectedBack: color.secondaryLight,
-    divider: color.grey200,
+    mode: customization.mode,
+    heading: isDark ? color.darkTextTitle : color.grey900,
+    paper: isDark ? color.darkLevel2 : color.paper,
+    backgroundDefault: isDark ? color.darkPaper : color.paper,
+    background: isDark ? color.darkBackground : color.primaryLight,
+    inputBackground: isDark ? color.darkLevel1 : color.grey50,
+    darkTextPrimary: isDark ? color.darkTextPrimary : color.grey700,
+    darkTextSecondary: isDark ? color.darkTextSecondary : color.grey500,
+    textDark: isDark ? color.darkTextTitle : color.grey900,
+    menuSelected: isDark ? color.darkSecondaryLight : color.secondaryDark,
+    menuSelectedBack: isDark ? `${color.darkSecondaryMain}26` : color.secondaryLight,
+    divider: isDark ? `${color.darkTextPrimary}26` : color.grey200,
     customization
   };
 

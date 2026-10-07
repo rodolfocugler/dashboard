@@ -1,13 +1,14 @@
 // ===========================|| DASHBOARD - TOTAL ORDER MONTH CHART ||=========================== //
 
 const chartData = (data) => {
-  const min = Math.min.apply(Math, data) - 0.3;
-  const max = Math.min.apply(Math, data) + 0.3;
+  const min = Math.min(...data) - 0.05;
+  const max = Math.max(...data) + 0.05;
   return {
     type: 'line',
     height: 90,
     options: {
       chart: {
+        background: 'transparent',
         sparkline: {
           enabled: true
         }

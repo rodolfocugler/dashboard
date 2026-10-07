@@ -4,23 +4,24 @@
  */
 
 export default function themePalette(theme) {
+  const dark = theme.mode === 'dark';
   return {
-    mode: theme?.customization?.navType,
+    mode: theme.mode,
     common: {
       black: theme.colors?.darkPaper
     },
     primary: {
-      light: theme.colors?.primaryLight,
-      main: theme.colors?.primaryMain,
-      dark: theme.colors?.primaryDark,
-      200: theme.colors?.primary200,
+      light: dark ? theme.colors?.darkPrimaryLight : theme.colors?.primaryLight,
+      main: dark ? theme.colors?.darkPrimaryMain : theme.colors?.primaryMain,
+      dark: dark ? theme.colors?.darkPrimaryDark : theme.colors?.primaryDark,
+      200: dark ? theme.colors?.darkPrimary200 : theme.colors?.primary200,
       800: theme.colors?.primary800
     },
     secondary: {
-      light: theme.colors?.secondaryLight,
-      main: theme.colors?.secondaryMain,
-      dark: theme.colors?.secondaryDark,
-      200: theme.colors?.secondary200,
+      light: dark ? theme.colors?.darkSecondaryLight : theme.colors?.secondaryLight,
+      main: dark ? theme.colors?.darkSecondaryMain : theme.colors?.secondaryMain,
+      dark: dark ? theme.colors?.darkSecondaryDark : theme.colors?.secondaryDark,
+      200: dark ? theme.colors?.darkSecondary200 : theme.colors?.secondary200,
       800: theme.colors?.secondary800
     },
     error: {
@@ -65,6 +66,7 @@ export default function themePalette(theme) {
       dark: theme.textDark,
       hint: theme.colors?.grey100
     },
+    divider: theme.divider,
     background: {
       paper: theme.paper,
       default: theme.backgroundDefault

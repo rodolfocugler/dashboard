@@ -1,5 +1,5 @@
 export default function componentStyleOverrides(theme) {
-  const bgColor = theme.colors?.grey50;
+  const bgColor = theme.inputBackground;
   return {
     MuiButton: {
       styleOverrides: {
@@ -19,6 +19,13 @@ export default function componentStyleOverrides(theme) {
         },
         rounded: {
           borderRadius: `${theme?.customization?.borderRadius}px`
+        }
+      }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          transition: 'box-shadow .2s ease-in-out, border-color .2s ease-in-out'
         }
       }
     },
